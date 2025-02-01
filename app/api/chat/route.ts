@@ -22,7 +22,6 @@ export async function POST(req: Request) {
     })
 
     if (!response.ok) {
-      const errorBody = await response.text()
       throw new Error(`Flask API error: ${response.status} ${response.statusText}`)
     }
 
@@ -32,8 +31,8 @@ export async function POST(req: Request) {
       status: 200,
       headers: { "Content-Type": "application/json" },
     })
-  } catch (error: any) {
-    return new Response(JSON.stringify({ error: error.message }), {
+  } catch (error: unknown) {
+    return new Response(JSON.stringify({ error: (error as Error).message }), {
       status: 500,
       headers: { "Content-Type": "application/json" },
     })

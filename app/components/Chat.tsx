@@ -1,13 +1,13 @@
 "use client"
 
 import { useChat } from "ai/react"
-import { useState, useEffect } from "react"
+import { useState } from "react"
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import { Send, Loader2 } from "lucide-react"
 
 export function Chat() {
-  const { messages, input, handleInputChange, handleSubmit, setMessages } = useChat({
+  const { messages, input, handleInputChange, handleSubmit } = useChat({
     api: "/api/chat",
   })
 
