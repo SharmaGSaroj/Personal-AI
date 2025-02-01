@@ -32,7 +32,13 @@ export async function POST(req: Request) {
       headers: { "Content-Type": "application/json" },
     })
   } catch (error: unknown) {
-    return new Response(JSON.stringify({ error: (error as Error).message }), {
+    if (error instanceof Error) {
+      return new Response(JSON.stringify({ error: error.message }), {
+        status: 500,
+        headers: { "Content-Type": "application/json" },
+      })
+    }
+    return new Response(JSON.stringify({ error: "An unknown error occurred" }), {
       status: 500,
       headers: { "Content-Type": "application/json" },
     })
