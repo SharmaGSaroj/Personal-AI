@@ -1,0 +1,20 @@
+version: '3.8'
+
+services:
+  frontend:
+    build: .
+    ports:
+      - "3000:3000"
+    depends_on:
+      - backend
+
+  backend:
+    build:
+      context: ./backend
+    command: gunicorn -w 4 -b 0.0.0.0:3001 wsgi:app
+    volumes:
+      - ./backend:/app
+    ports:
+      - "3001:3001"
+    environment:
+      FLASK_ENV: production
