@@ -13,7 +13,7 @@ export async function POST(req: Request) {
     }
 
     // Forward request to Flask API
-    const response = await fetch("http://localhost:3001/api/chat", {
+    const response = await fetch("https://personal-ai-sandy.vercel.app/api/chat", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
