@@ -13,7 +13,7 @@ export async function POST(req: Request) {
     }
 
     // Forward request to Flask API
-    const response = await fetch("https://personal-ai-sandy.vercel.app/api/chat", {
+    const response = await fetch("http://localhost:3001/api/chat", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -22,6 +22,7 @@ export async function POST(req: Request) {
     })
 
     if (!response.ok) {
+      const errorBody = await response.text()
       throw new Error(`Flask API error: ${response.status} ${response.statusText}`)
     }
 
@@ -31,14 +32,8 @@ export async function POST(req: Request) {
       status: 200,
       headers: { "Content-Type": "application/json" },
     })
-  } catch (error: unknown) {
-    if (error instanceof Error) {
-      return new Response(JSON.stringify({ error: error.message }), {
-        status: 500,
-        headers: { "Content-Type": "application/json" },
-      })
-    }
-    return new Response(JSON.stringify({ error: "An unknown error occurred" }), {
+  } catch (error: any) {
+    return new Response(JSON.stringify({ error: error.message }), {
       status: 500,
       headers: { "Content-Type": "application/json" },
     })
